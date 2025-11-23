@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
+
+    <persistence-unit name="PolyOE_Lab3">
+
+        <!-- Các entity -->
+        <class>com.poly.entity.User</class>
+        <class>com.poly.entity.Video</class>
+        <class>com.poly.entity.Favorite</class>
+        <class>com.poly.entity.Share</class>
+
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver"
+                      value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:sqlserver://LAPTOP-7RD7637C:1433;databaseName=PolyOE_ASM;encrypt=false;trustServerCertificate=true;"/>
+
+            <property name="jakarta.persistence.jdbc.user" value="sa"/>
+            <property name="jakarta.persistence.jdbc.password" value="A1234b1234@"/>
+
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+
+            <!-- Hỗ trợ Unicode tiếng Việt -->
+            <property name="hibernate.connection.charSet" value="UTF-8"/>
+        </properties>
+
+    </persistence-unit>
+
+</persistence>
