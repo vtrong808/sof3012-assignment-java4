@@ -1,45 +1,6 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-
-<style>
-    /* Admin Color Palette */
-    :root {
-        --adm-primary: #5D001E; /* Đỏ rượu nền Sidebar */
-        --adm-light: #E3E2DF;   /* Nền content */
-        --adm-pink-light: #E3AFBC;
-        --adm-accent: #9A1750;  /* Active item */
-        --adm-highlight: #EE4C7C; /* Button */
-    }
-    .bg-adm-primary { background-color: var(--adm-primary) !important; }
-    .bg-adm-light { background-color: var(--adm-light) !important; }
-
-    .admin-sidebar {
-        width: 260px;
-        background-color: var(--adm-primary);
-        min-height: 100vh;
-        color: #E3E2DF;
-        box-shadow: 4px 0 10px rgba(0,0,0,0.1);
-    }
-    .admin-sidebar .nav-link {
-        color: #E3AFBC;
-        padding: 12px 20px;
-        font-weight: 500;
-        border-left: 4px solid transparent;
-    }
-    .admin-sidebar .nav-link:hover {
-        color: #fff;
-        background-color: rgba(255,255,255,0.1);
-    }
-    .admin-sidebar .nav-link.active {
-        background-color: var(--adm-accent);
-        color: #fff;
-        border-left-color: var(--adm-highlight);
-    }
-    .admin-content { flex: 1; background-color: var(--adm-light); }
-
-    .btn-adm { background-color: var(--adm-accent); color: white; }
-    .btn-adm:hover { background-color: var(--adm-highlight); color: white; }
-</style>
+<link rel="stylesheet" href="<c:url value='/css/polyoe.css'/>">
 
 <!-- Navbar Top -->
 <nav class="navbar navbar-expand navbar-dark bg-adm-primary border-bottom" style="border-color: #9A1750 !important;">

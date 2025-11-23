@@ -1,0 +1,117 @@
+/* =========================================
+   1. VARIABLES & THEME COLORS
+   ========================================= */
+:root {
+    /* Client Palette (Vàng - Tím) */
+    --cli-primary: #FAED26;
+    --cli-dark: #46344E;
+    --cli-gray: #5A5560;
+    --cli-mute: #9D8D8F;
+    --cli-brown: #9B786F;
+
+    /* Admin Palette (Đỏ rượu - Xám) */
+    --adm-primary: #5D001E;
+    --adm-light: #E3E2DF;
+    --adm-pink-light: #E3AFBC;
+    --adm-accent: #9A1750;
+    --adm-highlight: #EE4C7C;
+}
+
+/* =========================================
+   2. CLIENT STYLES (Trang người dùng)
+   ========================================= */
+.bg-cli-dark { background-color: var(--cli-dark) !important; }
+.text-cli-primary { color: var(--cli-primary) !important; }
+
+.btn-cli-primary {
+    background-color: var(--cli-primary);
+    color: var(--cli-dark);
+    font-weight: bold;
+    border: none;
+}
+.btn-cli-primary:hover {
+    background-color: #e6da23;
+    color: #000;
+}
+
+/* Hero Banner */
+.hero-banner {
+    background-color: var(--cli-dark);
+    color: var(--cli-primary);
+    padding: 4rem 0;
+    background-image: linear-gradient(45deg, var(--cli-dark) 0%, #2a1f2f 100%);
+}
+
+/* Movie Card */
+.movie-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: white;
+}
+.movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(70, 52, 78, 0.2);
+}
+.card-footer-custom {
+    background-color: var(--cli-dark);
+    border-top: 3px solid var(--cli-primary);
+}
+
+/* Pagination */
+.page-link { color: var(--cli-dark); }
+.page-item.active .page-link {
+    background-color: var(--cli-dark);
+    border-color: var(--cli-dark);
+    color: var(--cli-primary);
+}
+
+/* =========================================
+   3. ADMIN STYLES (Trang quản trị)
+   ========================================= */
+.bg-adm-primary { background-color: var(--adm-primary) !important; }
+.bg-adm-light { background-color: var(--adm-light) !important; }
+
+.admin-sidebar {
+    width: 260px;
+    background-color: var(--adm-primary);
+    min-height: 100vh;
+    color: #E3E2DF;
+    box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+}
+.admin-sidebar .nav-link {
+    color: #E3AFBC;
+    padding: 12px 20px;
+    font-weight: 500;
+    border-left: 4px solid transparent;
+}
+.admin-sidebar .nav-link:hover {
+    color: #fff;
+    background-color: rgba(255,255,255,0.1);
+}
+.admin-sidebar .nav-link.active {
+    background-color: var(--adm-accent);
+    color: #fff;
+    border-left-color: var(--adm-highlight);
+}
+.admin-content { flex: 1; background-color: var(--adm-light); }
+
+/* Admin Stats Card */
+.stat-card {
+    border: none;
+    border-radius: 12px;
+    transition: transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+.stat-card:hover { transform: translateY(-5px); }
+.icon-box {
+    width: 50px; height: 50px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 10px; font-size: 1.5rem;
+}
+.welcome-box {
+    background-color: #fff;
+    border-left: 5px solid var(--adm-accent);
+    border-radius: 8px;
+}

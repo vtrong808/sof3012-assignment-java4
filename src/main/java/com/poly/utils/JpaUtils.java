@@ -1,0 +1,23 @@
+package com.poly.utils;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+
+public class JpaUtils {
+    private static EntityManagerFactory factory;
+
+    public static EntityManager getEntityManager() {
+        if (factory == null || !factory.isOpen()) {
+            // Tên "PolyOE_Lab3" phải khớp chính xác với tên trong persistence.xml
+            factory = Persistence.createEntityManagerFactory("PolyOE_ASM");
+        }
+        return factory.createEntityManager();
+    }
+
+    public static void shutdown() {
+        if (factory != null && factory.isOpen()) {
+            factory.close();
+        }
+    }
+}

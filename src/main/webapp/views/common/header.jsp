@@ -1,28 +1,6 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-
-<style>
-    /* Client Color Palette */
-    :root {
-        --cli-primary: #FAED26; /* Vàng */
-        --cli-dark: #46344E;    /* Tím than */
-        --cli-gray: #5A5560;
-        --cli-mute: #9D8D8F;
-        --cli-brown: #9B786F;
-    }
-    .bg-cli-dark { background-color: var(--cli-dark) !important; }
-    .text-cli-primary { color: var(--cli-primary) !important; }
-    .btn-cli-primary {
-        background-color: var(--cli-primary);
-        color: var(--cli-dark);
-        font-weight: bold;
-        border: none;
-    }
-    .btn-cli-primary:hover {
-        background-color: #e6da23;
-        color: #000;
-    }
-</style>
+<link rel="stylesheet" href="<c:url value='/css/polyoe.css'/>">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-cli-dark sticky-top shadow-sm">
     <div class="container">
