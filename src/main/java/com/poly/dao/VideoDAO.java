@@ -16,6 +16,10 @@ public class VideoDAO implements AutoCloseable{
         }
     }
 
+    public Video findById(String id) {
+        return em.find(Video.class, id);
+    }
+
     public List<Video> findAll() {
         // JPQL để lấy tất cả video đang hoạt động (Active = true)
         // Assignment yêu cầu sắp xếp giảm dần theo lượt xem (Slide 2.1 Page 6)

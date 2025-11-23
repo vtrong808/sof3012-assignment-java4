@@ -28,13 +28,12 @@
 <div class="container mb-5">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h4 class="fw-bold border-start border-4 border-warning ps-3 text-uppercase" style="color: var(--cli-dark);">
-            Video Nổi Bật
+            Video Bạn Yêu Thích
         </h4>
-        <span class="badge bg-secondary">Top Views</span>
     </div>
 
     <div class="row g-4">
-        <c:forEach items="${items}" var="item">
+        <c:forEach items="${favorites}" var="item">
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card movie-card h-100 shadow-sm">
 
@@ -77,7 +76,7 @@
 
         <c:if test="${empty items}">
             <div class="col-12 text-center py-5">
-                <p class="text-muted">Chưa có video nào được cập nhật.</p>
+                <p class="text-muted">Chưa có video nào được yêu thích cả bạn nhỉ?.</p>
             </div>
         </c:if>
     </div>

@@ -115,3 +115,26 @@
     border-left: 5px solid var(--adm-accent);
     border-radius: 8px;
 }
+
+/* =========================================
+   4. DROPDOWN CUSTOMIZATION
+   ========================================= */
+.dropdown-menu {
+    background-color: var(--cli-dark); /* Nền tím than */
+    border: 1px solid var(--cli-primary);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-item {
+    color: #fff; /* Chữ trắng */
+    transition: all 0.2s;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: var(--cli-primary); /* Hover nền vàng */
+    color: var(--cli-dark); /* Chữ chuyển sang tím */
+}
+
+.dropdown-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
