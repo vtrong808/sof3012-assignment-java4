@@ -45,15 +45,24 @@ public class ReportDAO implements AutoCloseable{
         return query.getSingleResult();
     }
 
-    // 5. Thống kê Báo cáo: Favorites (Video Title, Count, Newest, Oldest)
+    // 5. Thống kê Favorites (Video Title, Count, Newest, Oldest, VideoID)
+    // CẬP NHẬT: Thêm f.video.id vào cuối để dùng cho nút bấm
     public List<Object[]> getFavorites() {
-        String jpql = "SELECT f.video.title, count(f), max(f.likeDate), min(f.likeDate) " +
-                "FROM Favorite f GROUP BY f.video.title";
+        String jpql = "SELECT f.video.title, count(f), max(f.likeDate), min(f.likeDate), f.video.id " +
+                "FROM Favorite f GROUP BY f.video.title, f.video.id";
         TypedQuery<Object[]> query = em.createQuery(jpql, Object[].class);
         return query.getResultList();
     }
 
-    // 6. Thống kê Báo cáo: Favorite Users (Username, Fullname, Email, LikeDate)
+    // 6. Thống kê Video Shares (Video Title, Count, Newest, Oldest, VideoID)
+    // THÊM MỚI: Dành cho tab thống kê chia sẻ
+    public List<Object[]> getVideoShares() {
+        String jpql = "SELECT s.video.title, count(s), max(s.shareDate), min(s.shareDate), s.video.id " +
+                "FROM Share s GROUP BY s.video.title, s.video.id";
+        TypedQuery<Object[]> query = em.createQuery(jpql, Object[].class);
+        return query.getResultList();
+    }
+
     public List<Object[]> getFavoriteUsers(String videoId) {
         String jpql = "SELECT f.user.id, f.user.fullname, f.user.email, f.likeDate " +
                 "FROM Favorite f WHERE f.video.id = :vid";

@@ -1,8 +1,6 @@
 package com.poly.servlet;
 
 import com.poly.dao.ReportDAO;
-import com.poly.dao.VideoDAO;
-import com.poly.entity.Video;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,53 +15,42 @@ public class ReportServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ReportDAO reportDao = new ReportDAO();
-        VideoDAO videoDao = new VideoDAO();
 
+        // tab: xác định đang xem bảng thống kê nào (favorites hay shares)
         String tab = req.getParameter("tab");
-        String videoId = req.getParameter("id"); // ID video chọn từ dropdown
+        // mode: xác định có đang mở modal chi tiết không
+        String mode = req.getParameter("mode");
+        String videoId = req.getParameter("id");
 
-        // Mặc định vào tab favorite-users nếu không có tham số
-        if (tab == null) {
-            tab = "favorite-users";
-        }
+        if (tab == null) tab = "favorites"; // Mặc định
 
         try {
-            // Load danh sách Video để đổ vào Dropdown cho cả 2 tab
-            List<Video> vList = videoDao.findAll();
-            req.setAttribute("vidList", vList);
+            // 1. LOGIC CHO TAB LƯỢT THÍCH
+            if (tab.equals("favorites")) {
+                List<Object[]> list = reportDao.getFavorites();
+                req.setAttribute("items", list); // Dữ liệu bảng tổng hợp
 
-            // Logic cho Tab Chia sẻ (Shared Friends)
-            if (tab.equals("shared-friends")) {
-                // Nếu chưa chọn video nào thì mặc định chọn cái đầu tiên
-                if (videoId == null && !vList.isEmpty()) {
-                    videoId = vList.get(0).getId();
-                }
-
-                if (videoId != null) {
-                    // Gọi DAO lấy list người share (Ông nhớ cập nhật ReportDAO nhé)
-                    List<Object[]> list = reportDao.getShareFriends(videoId);
-                    req.setAttribute("items", list);
-                    req.setAttribute("vidSelected", videoId); // Giữ lại ID để dropdown chọn đúng
+                // Nếu có yêu cầu xem chi tiết -> Load dữ liệu Modal
+                if ("detail".equals(mode) && videoId != null) {
+                    req.setAttribute("modalData", reportDao.getFavoriteUsers(videoId));
+                    req.setAttribute("showModal", "favoriteModal"); // Kích hoạt Modal
                 }
             }
-            // Logic cho Tab Yêu thích (Favorite Users)
-            else if (tab.equals("favorite-users")) {
-                if (videoId == null && !vList.isEmpty()) {
-                    videoId = vList.get(0).getId();
-                }
-                if (videoId != null) {
-                    List<Object[]> list = reportDao.getFavoriteUsers(videoId);
-                    req.setAttribute("items", list);
-                    req.setAttribute("vidSelected", videoId);
+            // 2. LOGIC CHO TAB LƯỢT CHIA SẺ
+            else if (tab.equals("shares")) {
+                List<Object[]> list = reportDao.getVideoShares();
+                req.setAttribute("items", list); // Dữ liệu bảng tổng hợp
+
+                // Nếu có yêu cầu xem chi tiết -> Load dữ liệu Modal
+                if ("detail".equals(mode) && videoId != null) {
+                    req.setAttribute("modalData", reportDao.getShareFriends(videoId));
+                    req.setAttribute("showModal", "shareModal"); // Kích hoạt Modal
                 }
             }
 
         } catch (Exception e) {
-            req.setAttribute("error", "Lỗi báo cáo: " + e.getMessage());
+            req.setAttribute("error", "Lỗi: " + e.getMessage());
             e.printStackTrace();
-        } finally {
-            videoDao.close();
-            // reportDao không có close() thì thôi, hoặc thêm vào nếu muốn chuẩn
         }
 
         req.setAttribute("tab", tab);
