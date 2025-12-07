@@ -40,13 +40,14 @@
 
                     <div class="position-relative">
                         <a href="<c:url value='/video/detail?id=${item.id}'/>">
-                            <img src="${item.poster}"
+                            <img src="https://img.youtube.com/vi/${item.id}/hqdefault.jpg"
                                  class="card-img-top"
                                  alt="${item.title}"
-                                 onerror="this.src='https://placehold.co/600x400?text=No+Image'">
+                                 style="height: 200px; object-fit: cover;">
                         </a>
                         <div class="position-absolute bottom-0 end-0 bg-dark text-white px-2 py-1 opacity-75 small">
-                            <i class="bi bi-eye"></i> ${item.views}
+                            <i class="bi bi-eye"></i>
+                            <fmt:formatNumber value="${item.views}" type="number" groupingUsed="true"/>
                         </div>
                     </div>
 
@@ -85,8 +86,9 @@
         </c:if>
     </div>
 
-    <nav aria-label="Page navigation" class="mt-5">
+    <c:if test="${totalPages > 1}"> <nav aria-label="Page navigation" class="mt-5">
         <ul class="pagination justify-content-center">
+
             <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
                 <a class="page-link" href="<c:url value='/home?page=1'/>">
                     <i class="bi bi-skip-start-fill"></i>
@@ -99,23 +101,26 @@
                 </a>
             </li>
 
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item disabled">
+                        <span class="page-link fw-bold text-dark border-0 bg-transparent">
+                            Trang ${currentPage} / ${totalPages}
+                        </span>
+            </li>
 
-            <li class="page-item">
+            <li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
                 <a class="page-link" href="<c:url value='/home?page=${currentPage + 1}'/>">
                     <i class="bi bi-chevron-double-right"></i>
                 </a>
             </li>
 
-            <li class="page-item">
-                <a class="page-link" href="<c:url value='/home?page=max'/>">
+            <li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
+                <a class="page-link" href="<c:url value='/home?page=${totalPages}'/>">
                     <i class="bi bi-skip-end-fill"></i>
                 </a>
             </li>
         </ul>
     </nav>
+    </c:if>
 </div>
 
 <div class="modal fade" id="shareModal" tabindex="-1" aria-hidden="true">

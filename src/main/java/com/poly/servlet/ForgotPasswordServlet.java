@@ -2,6 +2,7 @@ package com.poly.servlet;
 
 import com.poly.dao.UserDAO;
 import com.poly.entity.User;
+import com.poly.utils.XEmail;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -18,7 +19,6 @@ public class ForgotPasswordServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Giai đoạn 1: Chỉ mô phỏng kiểm tra User
         String username = req.getParameter("username");
         String email = req.getParameter("email");
 
@@ -28,14 +28,20 @@ public class ForgotPasswordServlet extends HttpServlet {
             if (user == null) {
                 req.setAttribute("message", "Tên tài khoản không tồn tại!");
             } else if (!user.getEmail().equalsIgnoreCase(email)) {
-                req.setAttribute("message", "Email không khớp với tài khoản đăng ký!");
+                req.setAttribute("message", "Email không khớp với tài khoản!");
             } else {
-                // Giai đoạn 2 sẽ gửi mail ở đây. Tạm thời thông báo thành công.
+                // Gửi mật khẩu về mail
+                String subject = "PolyOE - Lấy lại mật khẩu";
+                String body = "Mật khẩu của bạn là: <b>" + user.getPassword() + "</b><br>Vui lòng đổi mật khẩu sau khi đăng nhập.";
+
+                XEmail.send(email, subject, body);
+
                 req.setAttribute("message", "Mật khẩu đã được gửi về email: " + email);
-                req.setAttribute("type", "success"); // Để tô màu xanh thông báo
+                req.setAttribute("type", "success");
             }
         } catch (Exception e) {
             req.setAttribute("message", "Lỗi hệ thống: " + e.getMessage());
+            e.printStackTrace();
         }
 
         req.getRequestDispatcher("/views/site/forgot-password.jsp").forward(req, resp);

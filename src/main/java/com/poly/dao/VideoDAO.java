@@ -10,6 +10,24 @@ import java.util.List;
 public class VideoDAO implements AutoCloseable{
     private EntityManager em = JpaUtils.getEntityManager();
 
+    // Đếm tổng số video đang hoạt động (Active = true)
+    public long count() {
+        String jpql = "SELECT count(v) FROM Video v WHERE v.active = true";
+        TypedQuery<Long> query = em.createQuery(jpql, Long.class);
+        return query.getSingleResult();
+    }
+
+    // Lấy danh sách video theo trang (Phân trang)
+    public List<Video> findAll(int page, int pageSize) {
+        String jpql = "SELECT v FROM Video v WHERE v.active = true ORDER BY v.views DESC";
+        TypedQuery<Video> query = em.createQuery(jpql, Video.class);
+
+        query.setFirstResult((page - 1) * pageSize); // Vị trí bắt đầu
+        query.setMaxResults(pageSize);               // Số lượng lấy
+
+        return query.getResultList();
+    }
+
     @Override
     public void close() {
         if (em != null && em.isOpen()) {

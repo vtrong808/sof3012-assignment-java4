@@ -91,12 +91,12 @@
         <div class="px-3 mb-2 text-uppercase small fw-bold" style="color: var(--adm-highlight); opacity: 0.8;">Thống kê</div>
         <nav class="nav flex-column">
             <a class="nav-link ${param.tab == 'favorite-users' || param.tab == 'favorites' ? 'active' : ''}"
-               href="<c:url value='/admin/reports?tab=favorite-users'/>">
+               href="<c:url value='/admin/reports?tab=favorites'/>">
                 <i class="bi bi-heart me-2"></i> Lượt thích
             </a>
 
-            <a class="nav-link ${param.tab == 'shared-friends' ? 'active' : ''}"
-               href="<c:url value='/admin/reports?tab=shared-friends'/>">
+            <a class="nav-link ${param.tab == 'shared-friends' || param.tab == 'shares' ? 'active' : ''}"
+               href="<c:url value='/admin/reports?tab=shares'/>">
                 <i class="bi bi-share me-2"></i> Chia sẻ
             </a>
         </nav>

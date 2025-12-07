@@ -72,4 +72,13 @@ public class UserDAO implements AutoCloseable{
         TypedQuery<User> query = em.createQuery(jpql, User.class);
         return query.getResultList();
     }
+
+    //6. Tìm user theo email
+    public User findByEmail(String email) {
+        String jpql = "SELECT u FROM User u WHERE u.email = :email";
+        TypedQuery<User> query = em.createQuery(jpql, User.class);
+        query.setParameter("email", email);
+        List<User> list = query.getResultList();
+        return list.isEmpty() ? null : list.get(0);
+    }
 }

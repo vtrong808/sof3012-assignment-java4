@@ -19,8 +19,11 @@
         <div class="col-lg-8">
             <div class="card shadow-sm border-0 mb-4">
                 <div class="ratio ratio-16x9">
-                    <iframe src="https://www.youtube.com/embed/${video.id}?rel=0"
-                            title="YouTube video player" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/${video.id}?rel=0&autoplay=1"
+                            title="YouTube video player"
+                            allowfullscreen
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+                    </iframe>
                 </div>
                 <div class="card-body">
                     <h3 class="fw-bold" style="color: var(--cli-dark);">${video.title}</h3>
@@ -51,8 +54,9 @@
 
             <div class="list-group shadow-sm">
                 <c:forEach items="${items}" var="item" end="4"> <a href="<c:url value='/video/detail?id=${item.id}'/>" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-                    <img src="${item.poster}" alt="twbs" width="100" height="60" class="rounded flex-shrink-0 object-fit-cover"
-                         onerror="this.src='https://placehold.co/100x60?text=No+Img'">
+                    <img src="https://img.youtube.com/vi/${item.id}/hqdefault.jpg"
+                         alt="${item.title}" width="100" height="60"
+                         class="rounded flex-shrink-0 object-fit-cover">
                     <div class="d-flex gap-2 w-100 justify-content-between">
                         <div>
                             <h6 class="mb-0 fw-bold text-truncate" style="max-width: 150px;">${item.title}</h6>
