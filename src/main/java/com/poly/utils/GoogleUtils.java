@@ -6,15 +6,36 @@ import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class GoogleUtils {
-    // Thay bằng thông tin thật của ông từ Google Cloud Console
-    public static final String GOOGLE_CLIENT_ID = "266380978432-ddg2enof60vd2qdbtcirj7oeu1ei8193.apps.googleusercontent.com";
-    public static final String GOOGLE_CLIENT_SECRET = "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";
-    public static final String GOOGLE_REDIRECT_URI = "http://localhost:8080/PolyOE_ASM/login-google";
-    public static final String GOOGLE_LINK_GET_TOKEN = "https://accounts.google.com/o/oauth2/token";
-    public static final String GOOGLE_LINK_GET_USER_INFO = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=";
-    public static final String GOOGLE_GRANT_TYPE = "authorization_code";
+    // Khai báo biến tĩnh để hứng dữ liệu
+    public static String GOOGLE_CLIENT_ID;
+    public static String GOOGLE_CLIENT_SECRET;
+    public static String GOOGLE_REDIRECT_URI;
+    public static String GOOGLE_LINK_GET_TOKEN = "https://accounts.google.com/o/oauth2/token";
+    public static String GOOGLE_LINK_GET_USER_INFO = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=";
+    public static String GOOGLE_GRANT_TYPE = "authorization_code";
+
+    // Khối static này sẽ chạy ngay khi class được gọi lần đầu
+    static {
+        Properties props = new Properties();
+        try (InputStream input = GoogleUtils.class.getClassLoader().getResourceAsStream("env.properties")) {
+            if (input == null) {
+                System.out.println("Sorry, unable to find env.properties");
+            } else {
+                // Load dữ liệu từ file
+                props.load(input);
+                // Gán giá trị vào biến
+                GOOGLE_CLIENT_ID = props.getProperty("GOOGLE_CLIENT_ID");
+                GOOGLE_CLIENT_SECRET = props.getProperty("GOOGLE_CLIENT_SECRET");
+                GOOGLE_REDIRECT_URI = props.getProperty("GOOGLE_REDIRECT_URI");
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     public static String getToken(final String code) throws IOException {
         String response = Request.Post(GOOGLE_LINK_GET_TOKEN)

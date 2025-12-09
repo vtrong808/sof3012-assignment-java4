@@ -17,6 +17,15 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Tạo đường dẫn đăng nhập Google động từ biến trong GoogleUtils
+        String googleLoginUrl = "https://accounts.google.com/o/oauth2/auth?scope=email%20profile"
+                + "&redirect_uri=" + com.poly.utils.GoogleUtils.GOOGLE_REDIRECT_URI
+                + "&response_type=code"
+                + "&client_id=" + com.poly.utils.GoogleUtils.GOOGLE_CLIENT_ID;
+
+        // Gửi đường dẫn này sang trang JSP
+        req.setAttribute("googleUrl", googleLoginUrl);
+
         req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
     }
 
